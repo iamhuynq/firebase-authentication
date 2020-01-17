@@ -1,13 +1,14 @@
-//get data
-db.collection('films').get().then(snapshot => {
-    setUpGuides(snapshot.docs);
-})
 //listen for status change
 auth.onAuthStateChanged(user => {
     if(user){
-        console.log('User logged in', user);
+        //get data
+        db.collection('films').onSnapshot(snapshot => {
+            setUpGuides(snapshot.docs);
+        });
+        setUpUi(user);
     }else{
-        console.log('User logged out');
+        setUpUi();
+        setUpGuides([]);
     }
 });
 
@@ -46,3 +47,18 @@ loginForm.addEventListener('submit', e => {
         loginForm.reset();
     })
 });
+
+//create new films
+
+const createForm = document.querySelector('#create-form');
+createForm.addEventListener('submit', e => {
+    e.preventDefault();
+    db.collection('films').add({
+        title: createForm['title'].value,
+        content: createForm['content'].value,
+    }).then(() => {
+        const modal = document.querySelector('#modal-create');
+        M.Modal.getInstance(modal).close();
+        createForm.reset();
+    }).catch(err => console.log(err.message));
+})
