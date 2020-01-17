@@ -119,7 +119,33 @@
       </li>
     </ul>
   </div>
-  
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-firestore.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-analytics.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDgbNzoBO3xrcdDNft-nDD5DiIhYBZTOKA",
+      authDomain: "fir-authentication-b3ceb.firebaseapp.com",
+      databaseURL: "https://fir-authentication-b3ceb.firebaseio.com",
+      projectId: "fir-authentication-b3ceb",
+      storageBucket: "fir-authentication-b3ceb.appspot.com",
+      messagingSenderId: "606320879666",
+      appId: "1:606320879666:web:972239f4a2b512bcacf42b",
+      measurementId: "G-Z3K498JJX4"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/auth.js"></script>
