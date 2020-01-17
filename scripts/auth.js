@@ -4,7 +4,7 @@ auth.onAuthStateChanged(user => {
         //get data
         db.collection('films').onSnapshot(snapshot => {
             setUpGuides(snapshot.docs);
-        });
+        }, err => console.log(err));
         setUpUi(user);
     }else{
         setUpUi();
@@ -20,6 +20,10 @@ signUpForm.addEventListener('submit', e => {
 
     //sign up the user
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
+        return db.collection('users').doc(cred.user.uid).set({
+            bio: signUpForm['signup-bio'].value,
+        })
+    }).then(() => {
         const modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signUpForm.reset();

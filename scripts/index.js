@@ -2,12 +2,21 @@ const films = document.querySelector('.guides');
 
 const loggedOutLinks = document.querySelectorAll('.logged-out');
 const loggedInLinks = document.querySelectorAll('.logged-in');
+const accountDetail = document.querySelector('.account-details');
 
 const setUpUi = user => {
   if(user){
+    db.collection('users').doc(user.uid).get().then(doc => {
+      const html = `
+        <div>Logged in as ${user.email}<div>
+        <div>${doc.data().bio}</div>
+      `;
+      accountDetail.innerHTML = html;
+    });
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
-  }else{
+  } else {
+    accountDetail.innerHTML = '';
     loggedInLinks.forEach(item => item.style.display = 'none');
     loggedOutLinks.forEach(item => item.style.display = 'block');
   }
